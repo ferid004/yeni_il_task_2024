@@ -6,9 +6,9 @@ export const post_register = async (req, res) => {
         const newuser = new user(req.body)
         await newuser.save()
         //  jwt tuken gonderioriki burda username yerine bizim req.body den usernameni alir ve secretkey
-        const token = jwt.sign({ username: newuser.username }, process.env.SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ username: newuser.username ,role:newuser.role}, process.env.SECRET_KEY, { expiresIn: "1h" });
 
-        res.status(200).send(token)
+        res.status(200).json(token)
 
     } catch (error) {
         res.status(400).send(error.message)
